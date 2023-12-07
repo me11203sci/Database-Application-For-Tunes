@@ -6,9 +6,14 @@ Created: 6 December 2023
 Updated: 7 December 2023
 Version: 0.0
 Description: 
-  TO-DO
+    This script contains a program that processes either an .mp3 file or a folder
+    containing many .mp3 files given by the command 'Python3 daft_cli.py <arg1>'
+    in the terminal interface. <arg1> is specified as either the desired .mp3 
+    to be processed or the target directory. The program appends the metadata to
+    the passed .mp3 file if the .mp3 can be found in the DAFT database. The 
+    program will throw an error for passing an incorrect input/file type.
 Notes:
-  TO-DO: Change all 'Any' type annotations to more specific examples.
+    TO-DO: Change all 'Any' type annotations to more specific examples.
 '''
 from alive_progress import alive_bar, alive_it
 from dotenv import dotenv_values, find_dotenv
@@ -25,9 +30,22 @@ from typing import Any, Final
 
 
 def process_file(file: str) -> None:
+    '''The function to process a passed file if it is an .mp3 file
+       with PEP 484 type annotations.
+       
+    Parameters
+    ----------
+    file: str
+        The file that will be processed.
+    
+    Returns
+    -------
+    None
+        There is no value to be returned.
+
     '''
-    TO-DO
-    '''
+
+    # Test for if a file is an mp3 and reject if not.
     try:
         assert file.split('.')[-1] == 'mp3'
     except AssertionError:
@@ -119,18 +137,22 @@ if __name__ == '__main__':
 
     path_to_input: str = sys.argv[1]
 
+    # Testing for if the given input is a file or a folder and not something else.
     try:
         assert isfile(path_to_input) or isdir(path_to_input)
     except AssertionError:
         print('ERROR: Invalid path')
 
-    # TO-DO: Add progress bar.
+    # If the given input is a folder, then all of the files are pulled and
+    # passed individually to the process_file function.
+    # Progress is shown with a visual progress bar.
     if isdir(path_to_input):
+        # Creates list of files 
         files: list[str] = [
             f'{path_to_input}{file}' for file in listdir(path_to_input)
             if isfile(f'{path_to_input}{file}')
         ]
-
+        # Processes each file individually with a progress bar.
         for file in alive_it(
             files,
             title='Processing files:',
@@ -138,6 +160,7 @@ if __name__ == '__main__':
         ):
             process_file(file)
     else:
+        # Process the input file and show progress bar.
         with alive_bar(
             1,
             title='Processing file:',
