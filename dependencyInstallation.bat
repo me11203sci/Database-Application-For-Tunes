@@ -5,4 +5,5 @@ pip install mysql-connector-python
 pip install pillow
 pip install PySimpleGUI
 pip install requests
+pip install python-dotenv
 pause

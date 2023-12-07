@@ -1,4 +1,4 @@
 @echo off
 title STARTING DAFTDB
-python daftDB.py
+python daft_gui.py
 pause
