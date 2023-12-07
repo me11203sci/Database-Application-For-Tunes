@@ -3,7 +3,7 @@ Database Application For Tunes - Command Line Interface
 
 Author(s): Ethan Brushwood, Melesio Albavera
 Created: 6 December 2023
-Updated: 6 December 2023
+Updated: 7 December 2023
 Version: 0.0
 Description: 
   TO-DO
@@ -11,6 +11,7 @@ Notes:
   TO-DO: Change all 'Any' type annotations to more specific examples.
 '''
 from alive_progress import alive_bar, alive_it
+from dotenv import dotenv_values, find_dotenv
 import hashlib
 from mutagen.easyid3 import EasyID3
 from mutagen.id3 import ID3
@@ -20,7 +21,7 @@ from os import listdir, remove
 from os.path import isfile, isdir
 import requests
 import sys
-from typing import Any
+from typing import Any, Final
 
 
 def process_file(file: str) -> None:
@@ -45,10 +46,10 @@ def process_file(file: str) -> None:
 
     # Configure the connection to the database.
     connection_configuration: dict = {
-        'host' : 'localhost',
-        'user' : 'root',
-        'password' : 'rootpassword',
-        'database' : 'sys',
+        'host' : credentials['host'],
+        'user' : credentials['user'],
+        'password' : credentials['password'],
+        'database' : credentials['database'],
         'auth_plugin' : 'mysql_native_password'
     }
 
@@ -65,7 +66,11 @@ def process_file(file: str) -> None:
     )
     database_cursor.execute(query, (mp3_hash, ))
 
+    # Check if not in database.
     tags: Any = database_cursor.fetchone()
+    if tags == None:
+        print('ERROR: File metadata is not in database')
+        return
 
     # Write easy tags.
     new_mp3_tags = EasyID3(file)
@@ -102,6 +107,10 @@ def process_file(file: str) -> None:
 
 
 if __name__ == '__main__':
+    # Make sure credentials file exists, and load them in if true.
+    env_path: Final[str] = find_dotenv('.env', raise_error_if_not_found=True)
+    credentials: Final[dict] = dotenv_values(env_path)
+
     # Take in the file.
     try:
         assert len(sys.argv) >= 2
@@ -122,9 +131,17 @@ if __name__ == '__main__':
             if isfile(f'{path_to_input}{file}')
         ]
 
-        for file in alive_it(files, title='Processing files:'):
+        for file in alive_it(
+            files,
+            title='Processing files:',
+            enrich_print=False
+        ):
             process_file(file)
     else:
-        with alive_bar(1, title='Processing file:') as progress_bar:
+        with alive_bar(
+            1,
+            title='Processing file:',
+            enrich_print=False
+        ) as progress_bar:
             process_file(path_to_input)
             progress_bar()
