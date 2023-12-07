@@ -524,7 +524,7 @@ if __name__ == '__main__':
                 window[f'-COL1-'].update(visible=True)
                 window[f'-COL3-'].update(visible=False)
                 window['-ERRMESSAGE-'].update(text_color="green", value="Submission Edited!")
-                updateList = ['-SONGB-', '-ARTISTB-', '-ALBUMB-', '-YEARB-', '-GENREB-', '-TRACKNUMB-', '-TOTALTRACKSB-', '-IMGURLB-', '-ERRMESSAGEB-', '-ERRMESSAGE-', '-JSONINPUT-']
+                updateList = ['-SONGB-', '-ARTISTB-', '-ALBUMB-', '-YEARB-', '-GENREB-', '-TRACKNUMB-', '-TOTALTRACKSB-', '-IMGURLB-', '-ERRMESSAGEB-', '-JSONINPUT-']
                 for i in updateList:
                     window[i].update("")
 
@@ -551,7 +551,7 @@ if __name__ == '__main__':
             window[f'-COL1-'].update(visible=True)
             window[f'-COL2-'].update(visible=False)
             window['-ERRMESSAGE-'].update(text_color="green", value="Submission Deleted!")
-            updateList = ['-SONGB-', '-ARTISTB-', '-ALBUMB-', '-YEARB-', '-GENREB-', '-TRACKNUMB-', '-TOTALTRACKSB-', '-IMGURLB-', '-ERRMESSAGEB-', '-ERRMESSAGE-', '-JSONINPUT-']
+            updateList = ['-SONGB-', '-ARTISTB-', '-ALBUMB-', '-YEARB-', '-GENREB-', '-TRACKNUMB-', '-TOTALTRACKSB-', '-IMGURLB-', '-ERRMESSAGEB-', '-JSONINPUT-']
             for i in updateList:
                 window[i].update("")
 
