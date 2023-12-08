@@ -3,15 +3,15 @@ channels:
   - conda-forge
   - pypi
 dependencies:
-  - alive-progress=3.1.5
-  - mutagen=1.47.0
-  - python=3.12
-  - python-dotenv=1.0.0
-  - requests=2.31.0
-  - urllib3=2.1.0
-  - pip:
-    - filetype=1.2.0
-    - mysql-connector=2.2.9
-    - mysql-connector-python=8.2.0
-    - pillow=10.1.0
-    - pysimplegui=4.60.5
+  - alive-progress>=3.1.5
+  - mutagen>=1.47.0
+  - python>=3.12
+  - python-dotenv>=1.0.0
+  - requests>=2.31.0
+  - urllib3>=2.1.0
+  - pip>=23.3.1:
+    - filetype>=1.2.0
+    - mysql-connector>=2.2.9
+    - mysql-connector-python>=8.2.0
+    - pillow>=10.1.0
+    - pysimplegui>=4.60.5
