@@ -11,7 +11,6 @@ dependencies:
   - requests>=2.31.0
   - urllib3>=2.1.0
   - pip:
-    - filetype>=1.2.0
     - mysql-connector>=2.2.9
     - mysql-connector-python>=8.2.0
     - pillow>=10.1.0

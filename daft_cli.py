@@ -3,7 +3,7 @@ Database Application For Tunes - Command Line Interface
 
 Author(s): Ethan Brushwood, Melesio Albavera
 Created: 6 December 2023
-Updated: 7 December 2023
+Updated: 8 December 2023
 Version: 0.0
 Description: 
     This script contains a program that processes either an .mp3 file or a
@@ -18,7 +18,6 @@ Notes:
 '''
 from alive_progress import alive_bar, alive_it
 from dotenv import dotenv_values, find_dotenv
-from filetype import guess_extension
 import hashlib
 from mutagen.easyid3 import EasyID3
 from mutagen.id3 import ID3
@@ -32,25 +31,22 @@ from typing import Any, Final
 
 
 def process_file(file: str) -> None:
-    '''The function to process a passed file if it is an .mp3 file
-       with PEP 484 type annotations.
+    '''
+    Appends metadata as id3tags to a file given that it has a mp3 extension.
        
     Parameters
     ----------
     file: str
-        The file that will be processed.
+        The path to the file that will be processed.
     
     Returns
     -------
     None
-        There is no value to be returned. Instead, data is written to the
-        input file.
-
+        Data is written to the input file.
     '''
-
     # Test for if a file is an mp3 and reject if not.
     try:
-        assert guess_extension(file) == 'mp3'
+        assert file.endswith('.mp3')
     except AssertionError:
         print('ERROR: File is not an .mp3')
         return
@@ -138,7 +134,7 @@ if __name__ == '__main__':
     except AssertionError:
         print('ERROR: No input provided')
 
-    path_to_input: str = sys.argv[0]
+    path_to_input: str = sys.argv[1]
 
     # Testing for if the given input is a file or a folder and not something else.
     try:
