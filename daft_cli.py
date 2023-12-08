@@ -74,8 +74,6 @@ def process_file(file: str) -> None:
     database_cursor: Any = connection.cursor()
 
     # Define query and submit it to database.
-    # NOTE: Need to update this when database structure is updated with my
-    # requests to Kruse.
     query: str = (
         'SELECT SONG_TITLE, ALBUM_TITLE, ARTIST_NAME, YEAR_RELEASED, TRACK_NUM'
         ', TOTAL_TRACKS, GENRE, IMAGE_LINK FROM submission WHERE MP3_HASH=%s;'
@@ -89,16 +87,16 @@ def process_file(file: str) -> None:
         return
 
     # Write id3tags to file.
-    mp3_tags = music_tag.load_file(file)
-    mp3_tags['title'] = tags[0]
-    mp3_tags['album'] = tags[1]
-    mp3_tags['artist'] = tags[2]
-    mp3_tags['year'] = tags[3]
-    mp3_tags['tracknumber'] = tags[4]
-    mp3_tags['totaltracks'] = tags[5]
-    mp3_tags['genre'] = tags[6]
-    mp3_tags['artwork'] = urllib.request.urlopen(tags[7]).read()
-    mp3_tags.save()
+    mp3_tags = music_tag.load_file(file) # type: ignore
+    mp3_tags['title'] = tags[0] # type: ignore
+    mp3_tags['album'] = tags[1] # type: ignore
+    mp3_tags['artist'] = tags[2] # type: ignore
+    mp3_tags['year'] = tags[3] # type: ignore
+    mp3_tags['tracknumber'] = tags[4] # type: ignore
+    mp3_tags['totaltracks'] = tags[5] # type: ignore
+    mp3_tags['genre'] = tags[6] # type: ignore
+    mp3_tags['artwork'] = urllib.request.urlopen(tags[7]).read() # type: ignore
+    mp3_tags.save() # type: ignore
 
     # Close connection before return.
     connection.close()
@@ -114,7 +112,8 @@ if __name__ == '__main__':
     try:
         assert len(sys.argv) >= 2
     except AssertionError:
-        print('ERROR: No input provided')
+        print('FATAL ERROR: No input provided')
+        sys.exit(0)
 
     path_to_input: str = sys.argv[1]
 
@@ -122,7 +121,8 @@ if __name__ == '__main__':
     try:
         assert isfile(path_to_input) or isdir(path_to_input)
     except AssertionError:
-        print('ERROR: Invalid path')
+        print('FATAL ERROR: Invalid path')
+        sys.exit(0)
 
     # If the given input is a folder, then all of the files are pulled and
     # passed individually to the process_file function. Progress is shown with 

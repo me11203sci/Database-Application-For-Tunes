@@ -1,8 +1,59 @@
 # The Database Applications For Tunes
 
-TO-DO: Brief Description (copy from report.)
+The metadata associated with audio files in the MP3 format, commonly adhering to 
+the [ID3 standard](https://id3lib.sourceforge.net/id3/id3v2com-00.html#sec4.15), has seen several iterations over the years and can be used to 
+attribute up to 63 distinct informational fields. However, since the standard is 
+not officially part of the MP3 format, many sources of audio tracks do not include 
+ID3 tags, resulting in the task of categorizing falling on the shoulders of 
+individuals compiling audio collections for personal or commercial use. 
+This task, particularly the retrieval of the relevant information, becomes arduous 
+even for a handful of files. We propose the development of a command-line tool for 
+fetching a limited set of ID3 tags associated with a given user-provided query and 
+returning the metadata in an easily parsable format.
 
-## Installation
+## Setting Up Workflow/Toolchain
+
+### Python
+
+This project is written in the Python programming language and makes use of recent
+(at the time of writing) language features, so Python 3.17 or newer is required. For
+our recommended approach, please refer to the [dependencies](installing-dependencies) section below.
+
+### MySQL Server
+
+In order to run a local instance of the database, you need a Database Management software
+package, for which we used [MySQL Server](https://dev.mysql.com/downloads/mysql/). 
+
+![](./InstallationGuide/installation2a.PNG)
+
+After installing the correct version for your system, execute the installer. Once
+the software has been installed, .
+
+### MySQL Workbench
+
+TODO
+
+### Configure and Populate Database
+
+TODO
+
+## Installing Dependencies
+
+TODO
+
+## Usage
+
+Begin by cloning the repository to your local machine.
+
+### Running Command Line Interface Utility
+
+TODO
+
+### Graphical User Interface Guide
+
+TODO
+
+
 
 ### Downloading DAFT and Installing Python:
   First, click the Code button and download the ZIP file from the GitHub page at: https://github.com/me11203sci/Database-Application-For-Tunes 
