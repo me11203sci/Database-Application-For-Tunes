@@ -10,8 +10,8 @@ dependencies:
   - python-dotenv>=1.0.0
   - requests>=2.31.0
   - pip:
-    - music-tag>=0.4.3
-    - mysql-connector>=2.2.9
-    - mysql-connector-python>=8.2.0
-    - pillow>=10.1.0
-    - pysimplegui>=4.60.5
+    - music-tag
+    - mysql-connector
+    - mysql-connector-python
+    - pillow
+    - pysimplegui
