@@ -7,4 +7,5 @@ pip install PySimpleGUI
 pip install requests
 pip install python-dotenv
 pip install alive-progress
+pip install music_tag
 pause

@@ -27,6 +27,7 @@ from os.path import isfile, isdir
 import sys
 from typing import Any, Final
 import urllib.request
+from urllib.request import Request
 
 
 def process_file(file: str) -> None:
@@ -97,7 +98,8 @@ def process_file(file: str) -> None:
     mp3_tags['tracknumber'] = tags[4]
     mp3_tags['totaltracks'] = tags[5]
     mp3_tags['genre'] = tags[6]
-    mp3_tags['artwork'] = urllib.request.urlopen(tags[7]).read()
+    req = Request(tags[7],headers={'User-Agent': 'Mozilla/5.0'})
+    mp3_tags['artwork'] = urllib.request.urlopen(req).read()
     mp3_tags.save()
 
     # Close connection before return.
