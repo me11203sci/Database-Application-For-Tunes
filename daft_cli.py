@@ -21,9 +21,8 @@ from dotenv import dotenv_values, find_dotenv
 import hashlib
 import music_tag
 from mutagen.easyid3 import EasyID3
-from mutagen.id3._util import ID3NoHeaderError
 import mysql.connector
-from os import listdir, remove
+from os import listdir
 from os.path import isfile, isdir
 import sys
 from typing import Any, Final
