@@ -602,6 +602,7 @@ if __name__ == '__main__':
             JSONlist = values["-JSONINPUT-"].split(";")
             JSONcount = len(JSONlist)
             window['-PROGRESSBAR-'].update(max=JSONcount, current_count=0)
+            open('fileStatus.txt', 'w').close()
             fileStatus = open("fileStatus.txt", "a")
             filesProcessed = 0
             successfulFiles = 0
