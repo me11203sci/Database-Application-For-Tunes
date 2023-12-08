@@ -137,7 +137,7 @@ if __name__ == '__main__':
     except AssertionError:
         print('ERROR: No input provided')
 
-    path_to_input: str = sys.argv[1]
+    path_to_input: str = sys.argv[0]
 
     # Testing for if the given input is a file or a folder and not something else.
     try:
