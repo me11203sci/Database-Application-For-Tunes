@@ -18,6 +18,7 @@ Notes:
 '''
 from alive_progress import alive_bar, alive_it
 from dotenv import dotenv_values, find_dotenv
+from filetype import guess_extension
 import hashlib
 from mutagen.easyid3 import EasyID3
 from mutagen.id3 import ID3
@@ -49,7 +50,7 @@ def process_file(file: str) -> None:
 
     # Test for if a file is an mp3 and reject if not.
     try:
-        assert file.split('.')[-1] == 'mp3'
+        assert guess_extension(file) == 'mp3'
     except AssertionError:
         print('ERROR: File is not an .mp3')
         return
