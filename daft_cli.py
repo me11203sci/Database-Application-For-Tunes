@@ -19,15 +19,15 @@ Notes:
 from alive_progress import alive_bar, alive_it
 from dotenv import dotenv_values, find_dotenv
 import hashlib
+import music_tag
 from mutagen.easyid3 import EasyID3
-from mutagen.id3 import ID3
-from mutagen.id3._frames import APIC, TRCK
+from mutagen.id3._util import ID3NoHeaderError
 import mysql.connector
 from os import listdir, remove
 from os.path import isfile, isdir
-import requests
 import sys
 from typing import Any, Final
+import urllib.request
 
 
 def process_file(file: str) -> None:
@@ -89,34 +89,17 @@ def process_file(file: str) -> None:
         print('ERROR: File metadata is not in database')
         return
 
-    # Write easy tags.
-    new_mp3_tags = EasyID3(file)
-    new_mp3_tags['title'] = tags[0]
-    new_mp3_tags['album'] = tags[1]
-    new_mp3_tags['artist'] = tags[2]
-    new_mp3_tags['date'] = str(tags[3])
-    new_mp3_tags['genre'] = tags[6]
-    new_mp3_tags.save()
-
-    # Download cover art.
-    raw_cover_art = requests.get(tags[7]).content
-
-    # Write cover art to tags.
-    with open('temp_art.jpg', 'wb') as cover_art:
-        cover_art.write(raw_cover_art)
-
-    with open('temp_art.jpg', 'rb') as cover_art:
-        hard_tags = ID3(file)
-        hard_tags['APIC'] = APIC(
-            mime='image/jpeg',
-            desc=u'Front Cover',
-            data=cover_art.read()
-        )
-        hard_tags['TRCK'] = TRCK(encoding=3, text=f'{tags[4]}/{tags[5]}')
-        hard_tags.save()
-
-    # Delete cover art file.
-    remove(f'temp_art.jpg')
+    # Write id3tags to file.
+    mp3_tags = music_tag.load_file(file)
+    mp3_tags['title'] = tags[0]
+    mp3_tags['album'] = tags[1]
+    mp3_tags['artist'] = tags[2]
+    mp3_tags['year'] = tags[3]
+    mp3_tags['tracknumber'] = tags[4]
+    mp3_tags['totaltracks'] = tags[5]
+    mp3_tags['genre'] = tags[6]
+    mp3_tags['artwork'] = urllib.request.urlopen(tags[7]).read()
+    mp3_tags.save()
 
     # Close connection before return.
     connection.close()
