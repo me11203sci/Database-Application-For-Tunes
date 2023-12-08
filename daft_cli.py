@@ -45,6 +45,7 @@ def process_file(file: str) -> None:
         Data is written to the input file.
     '''
     # Test for if a file is an mp3 and reject if not.
+    print(file)
     try:
         assert file.endswith('.mp3')
     except AssertionError:
@@ -98,7 +99,10 @@ def process_file(file: str) -> None:
     mp3_tags['tracknumber'] = tags[4]
     mp3_tags['totaltracks'] = tags[5]
     mp3_tags['genre'] = tags[6]
-    req = Request(tags[7],headers={'User-Agent': 'Mozilla/5.0'})
+    req = Request(
+        tags[7],
+        headers={'User-Agent' : 'Mozilla/5.0'}
+    )
     mp3_tags['artwork'] = urllib.request.urlopen(req).read()
     mp3_tags.save()
 
