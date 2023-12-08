@@ -24,6 +24,7 @@ from mutagen.easyid3 import EasyID3
 import mysql.connector
 from os import listdir
 from os.path import isfile, isdir
+from pathlib import Path
 import sys
 from typing import Any, Final
 import urllib.request
@@ -53,7 +54,7 @@ def process_file(file: str) -> None:
         return
 
     # Strip tags off of mp3 so that hash is consistent.
-    mp3_tags = EasyID3(file.encode('unicode_escape'))
+    mp3_tags = EasyID3(Path(file))
     mp3_tags.delete()
     mp3_tags.save()
 
@@ -91,7 +92,7 @@ def process_file(file: str) -> None:
         return
 
     # Write id3tags to file.
-    mp3_tags = music_tag.load_file(file.encode('unicode_escape'))
+    mp3_tags = music_tag.load_file(Path(file))
     mp3_tags['title'] = tags[0]
     mp3_tags['album'] = tags[1]
     mp3_tags['artist'] = tags[2]
